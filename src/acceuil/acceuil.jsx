@@ -31,14 +31,24 @@ function Acceuil() {
                 </MDBContainer>
             </MDBNavbar>
 
-            <img src={background} className='img-fluid shadow-4' style={imageStyles} alt='...' />
-            <MDBInput
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                label='Controlled value'
-                id='controlledValue'
-                type='text'
-            />
+            <img src={background} className='img-fluid shadow-4' style={imageStyles} alt='Background' />
+
+            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', width: '60%', minHeigh: '30rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <MDBInput
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    label='Entrer la réference de votre colis'
+                    id='controlledValue'
+                    type='text'
+                    style={{ color: '#fff', backgroundColor: 'rgba(255, 255, 255, 0.9)', border: '1px solid #fff' }}
+                />
+                <MDBBtn color="orange" style={{ backgroundColor: '#FF8300' }}>Suivre</MDBBtn>
+
+                </div>
+
+
+            </div>
         </div>
     );
 }

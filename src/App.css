@@ -606,7 +606,23 @@ label.valid:after {
 @media screen and (max-width:1200px) {
   .container {
     width: calc(100% - 30px);
-    max-width: 100%
+    max-width: 100%}}
+.inputContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 60%;
+  min-height: 20rem;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
