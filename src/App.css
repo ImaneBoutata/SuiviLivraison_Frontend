@@ -607,15 +607,6 @@ label.valid:after {
   .container {
     width: calc(100% - 30px);
     max-width: 100%}}
-.inputContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 60%;
-  min-height: 20rem;
-}
 
 @keyframes App-logo-spin {
   from {
