@@ -23,7 +23,7 @@ function Acceuil() {
     return (
         <div className="Acceuil">
 
-            <Navbar />
+
             <img src={background} className='img-fluid shadow-4' style={imageStyles} alt='Background' />
 
             <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', width: '60%', minHeigh: '30rem' }}>
@@ -34,15 +34,15 @@ function Acceuil() {
                         label='Entrer la réference de votre colis'
                         id='controlledValue'
                         type='text'
-                        style={{ color: '#fff', backgroundColor: 'rgba(255, 255, 255, 0.9)', border: '1px solid #fff' }}
+                        style={{ color: '#fff', backgroundColor: 'rgba(255, 255, 255, 0.9)', border: '1px solid #fff', minHeight: "50px" }}
                     />
-                    <MDBBtn color="orange" style={{ backgroundColor: '#FF8300' }}>Suivre</MDBBtn>
+                    <MDBBtn color="orange" style={{ backgroundColor: '#FF8300', minHeight: "45px" }}>Suivre</MDBBtn>
 
                 </div>
 
 
             </div>
-            <Tracking />
+
         </div>
     );
 }

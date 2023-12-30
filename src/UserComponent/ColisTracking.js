@@ -6,8 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import background from '../images/backgroundLivraison.jpeg';
+import Navbar from "../Navbar/Navbar";
 function ColisTracking() {
     const [colis, setColis] = useState([]);
+    const [sortByStatus, setSortByStatus] = useState(null);
     useEffect(() => {
 
 
@@ -47,6 +49,14 @@ function ColisTracking() {
         left: 0,
         zIndex: -1,
     };
+    const handleSortByStatus = () => {
+        setSortByStatus((prevSort) => !prevSort);
+    };
+
+    const sortedColis = [...colis].sort((a, b) => {
+        if (sortByStatus === null) return 0;
+        return sortByStatus ? a.status - b.status : b.status - a.status;
+    });
 
     return (
 
@@ -54,7 +64,8 @@ function ColisTracking() {
 
 
 
-        < div className="card d-flex align-items-center mx-auto" style={{ width: '50%', backgroundColor: 'rgba(255, 255, 255, 0.7)' }} >
+        < div className="card d-flex align-items-center mx-auto" style={{ width: '50%', height: '400px', backgroundColor: 'rgba(255, 255, 255, 0.7)' }} >
+
             <img src={background} className='img-fluid shadow-4' style={imageStyles} alt='Background' />
 
             <div className="card-header">
@@ -70,8 +81,8 @@ function ColisTracking() {
                             </div>
                         </div>
                         <div className="col-auto">
-                            <button className="btn btn-light sort" data-sort="name">
-                                Sort by state
+                            <button className="btn btn-light sort" onClick={handleSortByStatus}>
+                                Sort by status
                             </button>
                         </div>
                     </div>
