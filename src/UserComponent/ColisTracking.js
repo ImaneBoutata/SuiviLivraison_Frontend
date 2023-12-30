@@ -5,13 +5,15 @@ import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import background from '../images/backgroundLivraison.jpeg';
+import Navbar from "../Navbar/Navbar";
 function ColisTracking() {
     const [colis, setColis] = useState([]);
+    const [sortByStatus, setSortByStatus] = useState(null);
     useEffect(() => {
 
 
-        axios.get(`/api/colis/all`).then((response) => {
+        axios.get(`http://localhost:8092/api/colis/findByUserId/1`).then((response) => {
             setColis(response.data);
             console.log(response.data)
 
@@ -38,13 +40,34 @@ function ColisTracking() {
         // Provide feedback to the user
         alert('Tracking number copied to clipboard: ' + trackingNumber);
     };
+    const imageStyles = {
+        width: '100vw',
+        height: '100vh',
+        objectFit: 'cover',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: -1,
+    };
+    const handleSortByStatus = () => {
+        setSortByStatus((prevSort) => !prevSort);
+    };
+
+    const sortedColis = [...colis].sort((a, b) => {
+        if (sortByStatus === null) return 0;
+        return sortByStatus ? a.status - b.status : b.status - a.status;
+    });
+
     return (
 
 
 
 
 
-        < div className="card d-flex align-items-center mx-auto" style={{ width: '50%' }} >
+        < div className="card d-flex align-items-center mx-auto" style={{ width: '50%', height: '400px', backgroundColor: 'rgba(255, 255, 255, 0.7)' }} >
+
+            <img src={background} className='img-fluid shadow-4' style={imageStyles} alt='Background' />
+
             <div className="card-header">
                 <h4 className="card-title mb-0">Parcels Details</h4>
             </div>
@@ -58,17 +81,17 @@ function ColisTracking() {
                             </div>
                         </div>
                         <div className="col-auto">
-                            <button className="btn btn-light sort" data-sort="name">
-                                Sort by state
+                            <button className="btn btn-light sort" onClick={handleSortByStatus}>
+                                Sort by status
                             </button>
                         </div>
                     </div>
                     <div data-simplebar className="mx-n3">
                         <ul className="list list-group list-group-flush mb-0">
-                            <li className="list-group-item" data-id={1}>
+                            <li className="list-group-item  px-0 py-0" data-id={1}>
                                 <div className="d-flex">
                                     <div className="flex-grow-1">
-                                        <table class="table align-middle mb-0 bg-white">
+                                        <table class="table align-middle mb-0 bg-white ">
                                             <thead class="bg-light">
                                                 <tr>
                                                     <th>Tracking Number</th>
@@ -78,99 +101,43 @@ function ColisTracking() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <img
-                                                                src={parcel}
-                                                                alt=""
-                                                                style={{ width: '45px', height: '45px' }}
+                                                {colis.map((c) => (
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <img
+                                                                    src={parcel}
+                                                                    alt=""
+                                                                    style={{ width: '45px', height: '45px' }}
 
-                                                                class="rounded-circle"
-                                                            />
-                                                            <div class="ms-3">
-                                                                <p class="fw-bold mb-1">#AE3245  <FontAwesomeIcon
-                                                                    icon={faCopy}
-                                                                    style={{ cursor: 'pointer' }}
-                                                                    onClick={() => handleCopyTrackingNumber('#AE3245')}
-                                                                /></p>
+                                                                    class="rounded-circle"
+                                                                />
+                                                                <div class="ms-3">
+                                                                    <p class="fw-bold mb-1">{c.trackingNumber}  <FontAwesomeIcon
+                                                                        icon={faCopy}
+                                                                        style={{ cursor: 'pointer' }}
+                                                                        onClick={() => handleCopyTrackingNumber('#AE3245')}
+                                                                    /></p>
 
 
 
 
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <p class="fw-normal mb-1">Casablanca</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="fw-normal mb-1">{c.destination}</p>
 
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-success rounded-pill d-inline">Livré</span>
-                                                    </td>
-
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <img
-                                                                src={parcel}
-                                                                class="rounded-circle"
-                                                                alt=""
-                                                                style={{ width: '45px', height: '45px' }}
-                                                            />
-                                                            <div class="ms-3">
-                                                                <p class="fw-bold mb-1">#234RZF <FontAwesomeIcon
-                                                                    icon={faCopy}
-                                                                    style={{ cursor: 'pointer' }}
-                                                                    onClick={() => handleCopyTrackingNumber('#AE3245')}
-                                                                /></p>
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <p class="fw-normal mb-1">Tanger</p>
-
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-success rounded-pill d-inline"
-                                                        >Livré</span>
-                                                    </td>
+                                                        </td>
+                                                        <td>
+                                                            <span className={`badge ${c.status ? 'badge-success' : 'badge-danger'} rounded-pill d-inline`}>
+                                                                {c.status ? 'Livré' : 'En Cours'}
+                                                            </span> </td>
 
 
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <img
-                                                                src={parcel}
-                                                                class="rounded-circle"
-                                                                alt=""
-                                                                style={{ width: '45px', height: '45px', objectFit: 'cover', objectPosition: 'center center' }}
+                                                    </tr>
+                                                ))}
 
-                                                            />
-                                                            <div className="ms-3">
-                                                                <p class="fw-bold mb-1">#R2457 <FontAwesomeIcon
-                                                                    icon={faCopy}
-                                                                    style={{ cursor: 'pointer' }}
-                                                                    onClick={() => handleCopyTrackingNumber('#AE3245')}
-                                                                /></p>
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <p class="fw-normal mb-1">Marrakech</p>
-
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-danger rounded-pill d-inline">En Cours</span>
-                                                    </td>
-
-
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

@@ -6,6 +6,8 @@ import Login from './signin/Login';
 import ColisTracking from './UserComponent/ColisTracking';
 import Navbar from './Navbar/Navbar';
 import Tracking from "./acceuil/tracking";
+import { Link, Route, Routes } from 'react-router-dom';
+import { MDBBtn, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarItem, MDBNavbarLink, MDBNavbarNav } from "mdb-react-ui-kit";
 
 
 function App() {
@@ -15,7 +17,13 @@ function App() {
       <Navbar />
       <br />
       <br />
-      <Tracking/>
+      <Routes>
+        <Route path="/" element={<Acceuil />} />
+
+        <Route path="/parcel" element={<ColisTracking />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+
     </div>
   );
 }
