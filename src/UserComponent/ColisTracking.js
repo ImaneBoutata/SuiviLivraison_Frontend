@@ -7,18 +7,40 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import background from '../images/backgroundLivraison.jpeg';
 import Navbar from "../Navbar/Navbar";
+import { useParams } from "react-router-dom";
 function ColisTracking() {
     const [colis, setColis] = useState([]);
-    const [sortByStatus, setSortByStatus] = useState(null);
+    const [filterStatus, setFilterStatus] = useState(null);
+    const [searchInput, setSearchInput] = useState("");
+    const storedUser = localStorage.getItem('localuser');
+    const [userId, setUserId] = useState(null);
+
     useEffect(() => {
+        if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            const userId = parsedUser.id;
+            setUserId(userId);
+            console.log('User ID:', userId);
+        }
+    }, [storedUser]);
+
+    useEffect(() => {
+        if (userId) {
+            axios
+                .get(`http://localhost:8092/api/colis/findByUserId/${userId}`)
+                .then((response) => {
+                    setColis(response.data);
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.error('Error fetching colis data:', error);
+                });
+        }
+    }, [userId]);
+    const [copyNotification, setCopyNotification] = useState(false);
+    const [lastCopiedTrackingNumber, setLastCopiedTrackingNumber] = useState(null);
 
 
-        axios.get(`http://localhost:8092/api/colis/findByUserId/1`).then((response) => {
-            setColis(response.data);
-            console.log(response.data)
-
-        });
-    }, []);
     const handleCopyTrackingNumber = (trackingNumber) => {
         // Create a temporary textarea element to copy the text
         const textarea = document.createElement('textarea');
@@ -37,8 +59,13 @@ function ColisTracking() {
         // Remove the temporary textarea
         document.body.removeChild(textarea);
 
-        // Provide feedback to the user
-        alert('Tracking number copied to clipboard: ' + trackingNumber);
+        // Show the copy notification for the current tracking number
+        setLastCopiedTrackingNumber(trackingNumber);
+
+        // Hide the notification after 2 seconds (adjust the time based on your preference)
+        setTimeout(() => {
+            setLastCopiedTrackingNumber(null);
+        }, 2000);
     };
     const imageStyles = {
         width: '100vw',
@@ -49,15 +76,29 @@ function ColisTracking() {
         left: 0,
         zIndex: -1,
     };
-    const handleSortByStatus = () => {
-        setSortByStatus((prevSort) => !prevSort);
+    const handleToggleFilter = () => {
+        // Toggle the filter status: null -> true -> false -> null
+        setFilterStatus((prevStatus) => {
+            if (prevStatus === null) {
+                return true; // Show 'Livré'
+            } else if (prevStatus === true) {
+                return false; // Show 'En Cours'
+            } else {
+                return null; // Show all
+            }
+        });
     };
-
-    const sortedColis = [...colis].sort((a, b) => {
-        if (sortByStatus === null) return 0;
-        return sortByStatus ? a.status - b.status : b.status - a.status;
+    const filteredColis = colis.filter((c) => {
+        const matchesStatus = filterStatus === null || c.status === filterStatus;
+        const matchesSearch = c.trackingNumber.toLowerCase().includes(searchInput.toLowerCase());
+        return matchesStatus && matchesSearch;
     });
 
+
+
+    const handleSearchInputChange = (e) => {
+        setSearchInput(e.target.value);
+    };
     return (
 
 
@@ -77,12 +118,17 @@ function ColisTracking() {
                     <div className="row mb-2">
                         <div className="col">
                             <div>
-                                <input className="search form-control" placeholder="Search" />
+                                <input
+                                    className="search form-control"
+                                    placeholder="Search by Tracking Number"
+                                    value={searchInput}
+                                    onChange={handleSearchInputChange}
+                                />
                             </div>
                         </div>
                         <div className="col-auto">
-                            <button className="btn btn-light sort" onClick={handleSortByStatus}>
-                                Sort by status
+                            <button className="btn btn-light sort" onClick={handleToggleFilter}>
+                                Sort By State
                             </button>
                         </div>
                     </div>
@@ -101,8 +147,9 @@ function ColisTracking() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {colis.map((c) => (
-                                                    <tr>
+                                                {filteredColis.map((c) => (
+                                                    <tr key={c.trackingNumber}>
+
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <img
@@ -116,10 +163,14 @@ function ColisTracking() {
                                                                     <p class="fw-bold mb-1">{c.trackingNumber}  <FontAwesomeIcon
                                                                         icon={faCopy}
                                                                         style={{ cursor: 'pointer' }}
-                                                                        onClick={() => handleCopyTrackingNumber('#AE3245')}
+                                                                        onClick={() => handleCopyTrackingNumber(c.trackingNumber)}
                                                                     /></p>
 
-
+                                                                    {lastCopiedTrackingNumber === c.trackingNumber && (
+                                                                        <p className="alert alert-success" role="alert">
+                                                                            Text copied!
+                                                                        </p>
+                                                                    )}
 
 
                                                                 </div>
