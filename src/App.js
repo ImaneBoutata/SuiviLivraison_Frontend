@@ -5,6 +5,7 @@ import Register from './register/Register';
 import Login from './signin/Login';
 import ColisTracking from './UserComponent/ColisTracking';
 import Navbar from './Navbar/Navbar';
+import Tracking from "./acceuil/tracking";
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
       <Navbar />
       <br />
       <br />
-      <ColisTracking />
+      <Tracking/>
     </div>
   );
 }
