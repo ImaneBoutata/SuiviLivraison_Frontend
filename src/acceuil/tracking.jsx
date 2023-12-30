@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     MDBBtn, MDBCard, MDBCardBody, MDBCardText, MDBCardTitle, MDBCollapse,
     MDBContainer, MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBIcon, MDBInput,
@@ -22,16 +22,7 @@ function Tracking() {
     const [value, setValue] = useState('');
     return (
         <div className="Acceuil">
-            <MDBNavbar dark bgColor='dark'>
-                <MDBContainer fluid className="d-flex justify-content-between align-items-center">
-                    <MDBNavbarBrand href='#'>Delivery Track</MDBNavbarBrand>
-                    <div className="d-flex gap-3"> {/* Adding gap between buttons */}
-                        <MDBBtn color="dark" style={{ backgroundColor: "transparent", border: '1px solid #FF8300' }}>Sign In</MDBBtn>
-                        <MDBBtn color="orange" style={{ backgroundColor: '#FF8300' }}>Sign Up</MDBBtn>
 
-                    </div>
-                </MDBContainer>
-            </MDBNavbar>
 
             <img src={background} className='img-fluid shadow-4' style={imageStyles} alt='Background' />
 
@@ -53,28 +44,28 @@ function Tracking() {
                     id='controlledValue'
                     type='text'
                     disabled={true}
-                    style={{ color: '#fff', backgroundColor: 'rgba(255, 255, 255, 0.9)', border: '1px solid #fff' ,marginTop: '20px'}}
+                    style={{ color: '#fff', backgroundColor: 'rgba(255, 255, 255, 0.9)', border: '1px solid #fff', marginTop: '20px' }}
                 />
                 <div style={{ height: '350px', overflowY: 'auto' }}>
-                    <MDBContainer className="py-5"  style={{  textAlign:'left', marginTop:'0.5%', backgroundColor: 'rgba(255, 255, 255, 0.9)', paddingLeft:'5%' }}>
+                    <MDBContainer className="py-5" style={{ textAlign: 'left', marginTop: '0.5%', backgroundColor: 'rgba(255, 255, 255, 0.9)', paddingLeft: '5%' }}>
                         <ul className="timeline">
                             <li className="timeline-item mb-5">
-                                <h5 className="fw-bold" style={{ color: '#FF8300' , textAlign:'left' }}>2023-12-20   15:00:00</h5>
+                                <h5 className="fw-bold" style={{ color: '#FF8300', textAlign: 'left' }}>2023-12-20   15:00:00</h5>
                                 <p className="text-muted mb-2 fw-bold">Casablanca</p>
                                 <p className="text-muted"> Maroc</p>
                             </li>
                             <li className="timeline-item mb-5">
-                                <h5 className="fw-bold" style={{ color: '#FF8300' , textAlign:'left' }}>2023-12-20   15:00:00</h5>
+                                <h5 className="fw-bold" style={{ color: '#FF8300', textAlign: 'left' }}>2023-12-20   15:00:00</h5>
                                 <p className="text-muted mb-2 fw-bold">Marrakech</p>
                                 <p className="text-muted"> Maroc</p>
                             </li>
                             <li className="timeline-item mb-5">
-                                <h5 className="fw-bold" style={{ color: '#FF8300' , textAlign:'left' }}>2023-12-20   15:00:00</h5>
+                                <h5 className="fw-bold" style={{ color: '#FF8300', textAlign: 'left' }}>2023-12-20   15:00:00</h5>
                                 <p className="text-muted mb-2 fw-bold">Fes</p>
                                 <p className="text-muted"> Maroc</p>
                             </li>
                             <li className="timeline-item mb-5">
-                                <h5 className="fw-bold" style={{ color: '#FF8300' , textAlign:'left' }}>2023-12-20   15:00:00</h5>
+                                <h5 className="fw-bold" style={{ color: '#FF8300', textAlign: 'left' }}>2023-12-20   15:00:00</h5>
                                 <p className="text-muted mb-2 fw-bold">Casablanca</p>
                                 <p className="text-muted"> Maroc</p>
                             </li>
@@ -82,7 +73,7 @@ function Tracking() {
                     </MDBContainer>
 
                 </div>
-                </div>
+            </div>
 
 
 

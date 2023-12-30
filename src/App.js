@@ -14,6 +14,7 @@ function App() {
       <Navbar />
       <br />
       <br />
+
       <ColisTracking />
     </div>
   );

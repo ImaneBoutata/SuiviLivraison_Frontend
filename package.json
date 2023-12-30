@@ -1,6 +1,7 @@
 {
   "name": "suivi_livraison_front",
   "version": "0.1.0",
+  "proxy": "http://localhost:8092",
   "private": true,
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.5.1",

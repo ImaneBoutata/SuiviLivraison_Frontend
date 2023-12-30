@@ -7,6 +7,7 @@ import {
 } from 'mdb-react-ui-kit';
 import background from '../images/backgroundLivraison.jpeg';
 import Navbar from '../Navbar/Navbar';
+import Tracking from './tracking';
 function Acceuil() {
     const imageStyles = {
         width: '100vw',
@@ -41,6 +42,7 @@ function Acceuil() {
 
 
             </div>
+            <Tracking />
         </div>
     );
 }
