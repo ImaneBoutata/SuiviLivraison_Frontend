@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link } from "react-router-dom";
 import {
     MDBBtn, MDBCollapse,
     MDBContainer, MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle, MDBIcon, MDBInput,
@@ -24,7 +25,9 @@ function Acceuil() {
                 <MDBContainer fluid className="d-flex justify-content-between align-items-center">
                     <MDBNavbarBrand href='#'>Delivery Track</MDBNavbarBrand>
                     <div className="d-flex gap-3"> {/* Adding gap between buttons */}
+                    <Link to="/sign">
                         <MDBBtn color="dark" style={{ backgroundColor: "transparent", border: '1px solid #FF8300' }}>Sign In</MDBBtn>
+                    </Link>
                         <MDBBtn color="orange" style={{ backgroundColor: '#FF8300' }}>Sign Up</MDBBtn>
 
                     </div>
