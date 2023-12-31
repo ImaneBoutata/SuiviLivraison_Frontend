@@ -41,7 +41,10 @@ const Login = () => {
     const isValidLogin = verifyLogin(email, password);
 
     if (isValidLogin) {
-      navigate("/");
+      // Fetch the user ID after successful login
+
+      // Use React Router's useNavigate to navigate to ColisTracking route
+      navigate(`/parcel`);
     } else {
       setErrorMessage('Incorrect email or password.');
     }
@@ -53,7 +56,8 @@ const Login = () => {
     //check if user exists and put it in localstorage
     const matchedUser = users.find((user) => user.email === email && user.password === password);
     if (matchedUser) {
-      localStorage.setItem("localuser", matchedUser)
+      // Store user information as a JSON string
+      localStorage.setItem('localuser', JSON.stringify(matchedUser));
     }
     return !!matchedUser;
   };
