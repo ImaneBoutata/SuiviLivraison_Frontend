@@ -14,6 +14,7 @@ import Acceuil from './acceuil/acceuil';
 import Register from './register/Register';
 import Login from './signin/Login';
 import ColisTracking from './UserComponent/ColisTracking';
+import Tracking from "./acceuil/tracking";
 
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
@@ -73,7 +74,7 @@ function App() {
       </MDBNavbar>
 
       <Routes>
-        <Route path="/" element={<Acceuil />} />
+        <Route path="/" element={<Tracking />} />
         <Route path="/parcel" element={<ColisTracking />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
