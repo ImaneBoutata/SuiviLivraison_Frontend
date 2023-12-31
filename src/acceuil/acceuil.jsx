@@ -8,6 +8,7 @@ import {
 import background from '../images/backgroundLivraison.jpeg';
 import Navbar from '../Navbar/Navbar';
 import Tracking from './tracking';
+
 function Acceuil() {
     const imageStyles = {
         width: '100vw',
@@ -20,6 +21,12 @@ function Acceuil() {
     };
 
     const [value, setValue] = useState('');
+    const [reference, setReference] = useState('');
+
+    const  handleClick = (pageNumber) => {
+        //setReference(value);
+    };
+
     return (
         <div className="Acceuil">
 
@@ -36,7 +43,7 @@ function Acceuil() {
                         type='text'
                         style={{ color: '#fff', backgroundColor: 'rgba(255, 255, 255, 0.9)', border: '1px solid #fff', minHeight: "50px" }}
                     />
-                    <MDBBtn color="orange" style={{ backgroundColor: '#FF8300', minHeight: "45px" }}>Suivre</MDBBtn>
+                    <MDBBtn color="orange" onClick={handleClick} style={{ backgroundColor: '#FF8300', minHeight: "45px" }}>Suivre</MDBBtn>
 
                 </div>
 

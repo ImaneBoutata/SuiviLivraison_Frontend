@@ -32,6 +32,7 @@ function Tracking() {
     const [destinationn, setDestinationn] = useState('');
     const [trackingNumber, setTrackingNumber] = useState('');
     const [track, setTrack] = useState('');
+    const [boolean, setBoolean] = useState(false);
 
     const fetchList = () => {
         axios
@@ -46,11 +47,16 @@ function Tracking() {
                 console.log(error);
             });
     };
-     const  handleOnChange = (pageNumber) => {
-        setTrackingNumber(value);
-        fetchList();
-        console.log(trackingNumber);
-           };
+    const handleOnChange = async () => {
+        setTrackingNumber(value); // Set the tracking number immediately
+        try {
+            await fetchList(); // Wait for fetchList() to complete
+            setBoolean(true); // Set boolean after fetchList() completes
+            console.log(trackingNumber); // This might not log the updated tracking number immediately after setTrackingNumber because state updates are asynchronous
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
 
 
     return (
@@ -68,6 +74,9 @@ function Tracking() {
                     />
                     <MDBBtn color="orange" style={{ backgroundColor: '#FF8300' }} onClick={handleOnChange}>Suivre</MDBBtn>
                 </div>
+
+                {boolean && (
+                    <div>
                 <MDBInput
                     value={trackingNumber}
                     label='Le numero de suivi est : '
@@ -78,8 +87,7 @@ function Tracking() {
                 />
 
                 <div style={{ height: '350px', overflowY: 'auto' }}>
-                    <MDBContainer className="py-5" style={{ textAlign: 'left', marginTop: '0.5%', backgroundColor: 'rgba(255, 255, 255, 0.9)', paddingLeft: '5%' }}>
-
+                    <MDBContainer className="py-5" style={{ textAlign: 'left', marginTop: '0.5%', backgroundColor: 'rgba(255, 255, 255, 0.9)', paddingLeft: '5%' , borderRadius:'0%'}}>
                         <ul className="timeline">
                             {currentLocations.map((loc) => (
                                 <li  className="timeline-item mb-5">
@@ -93,6 +101,8 @@ function Tracking() {
 
                     </MDBContainer>
                 </div>
+                </div>
+                )}
                 </div>
 
 

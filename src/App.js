@@ -18,7 +18,7 @@ function App() {
       <br />
       <br />
       <Routes>
-        <Route path="/" element={<Acceuil />} />
+        <Route path="/" element={<Tracking />} />
 
         <Route path="/parcel" element={<ColisTracking />} />
         <Route path="/register" element={<Register />} />
