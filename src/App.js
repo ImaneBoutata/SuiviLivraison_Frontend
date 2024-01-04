@@ -25,7 +25,7 @@ function App() {
     if (storedUser) {
       setAuthenticatedUser(JSON.parse(storedUser));
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('localuser');

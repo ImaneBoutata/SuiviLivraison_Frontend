@@ -1,6 +1,6 @@
 // Import React and any additional styling libraries
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import image from '../images/signin-image.jpg';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import '../register/register.css'
 
 // Create a functional component for the signup form
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -41,6 +42,7 @@ const Register = () => {
         };
         const body = JSON.stringify(newUser);
         await axios.post("http://localhost:8092/api/controller/save", body, config);
+        navigate(`/login`);
         //const res = 
         // console.log(res.data);
       } catch (err) {
